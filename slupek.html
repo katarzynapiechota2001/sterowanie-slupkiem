@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Słupek Parkingowy (Użytkownik B)</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background: #222; color: white; }
+        #kolo { width: 200px; height: 200px; border-radius: 50%; margin: 40px auto; background-color: #555; transition: background-color 0.3s ease; }
+        #tekst { font-size: 24px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>Status Słupka</h2>
+    <div id="kolo"></div>
+    <div id="tekst">Oczekiwanie na dane...</div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // SKOPIUJ ROZWIĄZANIE KONFIGURACJI Z KONSOLI FIREBASE
+        const firebaseConfig = {
+            databaseURL: "https://TWOJA-NAZWA-PROJEKTU.firebaseio.com"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const stanRef = ref(database, 'stan_slupka');
+
+        const kolo = document.getElementById('kolo');
+        const tekst = document.getElementById('tekst');
+
+        onValue(stanRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data === 1) {
+                kolo.style.backgroundColor = '#2ecc71'; // Zielony
+                tekst.innerText = "SŁUPEK PODNIESIONY";
+            } else if (data === 0) {
+                kolo.style.backgroundColor = '#e74c3c'; // Czerwony
+                tekst.innerText = "SŁUPEK OPUSZCZONY";
+            } else {
+                kolo.style.backgroundColor = '#555';
+                tekst.innerText = "Brak danych w bazie";
+            }
+        });
+    </script>
+</body>
+</html>

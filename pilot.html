@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilot Parkingowy (Użytkownik A)</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background: #f0f0f0; }
+        button { width: 80%; max-width: 300px; padding: 20px; margin: 10px; font-size: 18px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; }
+        .btn-up { background-color: #2ecc71; color: white; }
+        .btn-down { background-color: #e74c3c; color: white; }
+    </style>
+</head>
+<body>
+    <h2>Sterowanie słupkiem</h2>
+    <button class="btn-up" onclick="ustawStan(1)">Podnieś słupek (1)</button>
+    <button class="btn-down" onclick="ustawStan(0)">Opuść słupek (0)</button>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // SKOPIUJ ROZWIĄZANIE KONFIGURACJI Z KONSOLI FIREBASE
+        const firebaseConfig = {
+            databaseURL: "https://TWOJA-NAZWA-PROJEKTU.firebaseio.com"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        window.ustawStan = function(stan) {
+            set(ref(database, 'stan_slupka'), stan)
+                .then(() => console.log("Stan zmieniony na: " + stan))
+                .catch((error) => console.error("Błąd zapisu: ", error));
+        }
+    </script>
+</body>
+</html>
