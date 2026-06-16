@@ -20,9 +20,14 @@
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const firebaseConfig = {
-            projectId: "sterowanie-slupkiem",
-            databaseURL: "https://sterowanie-slupkiem.europe-west1.firebasedatabase.app"
-        };
+  apiKey: "AIzaSyBEzQk5FFBhW1GPpfrgdyxgYi5XTkrADZc",
+  authDomain: "sterowanie-slupkiem.firebaseapp.com",
+  databaseURL: "https://sterowanie-slupkiem-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "sterowanie-slupkiem",
+  storageBucket: "sterowanie-slupkiem.firebasestorage.app",
+  messagingSenderId: "220231427953",
+  appId: "1:220231427953:web:fa66bba2e298a943c278d0"
+};
 
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
